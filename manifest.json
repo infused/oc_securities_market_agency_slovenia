@@ -23,13 +23,12 @@
     "url": "http://www.atvp.si/Default.aspx?id=98",
     "terms": "unknown",
     "terms_url": "unknown"
-  }
-  #,
-  # "transformers": [
-  #   {
-  #     "file": "licence_transformer.rb",
-  #     "data_type": "simple-licence",
-  #     "identifying_fields": ["company_name"]
-  #   }
-  # ]
+  },
+  "transformers": [
+    {
+      "file": "licence_transformer.rb",
+      "data_type": "simple-licence",
+      "identifying_fields": ["company_name"]
+    }
+  ]
 }
