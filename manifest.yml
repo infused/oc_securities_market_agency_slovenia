@@ -1,0 +1,35 @@
+{
+  "bot_id": "securities_market_agency_slovenia",
+  "title": "Securities Market Agency (Slovenia)",
+  "description": "Scape financial organizations for Securities Market Agency (Slovenia)",
+  "author": "Keith Morrison <keithm@infused.org>",
+  "public_repository": "https://github.com/infused/oc_securities_market_agency_slovenia",
+  "language": "ruby",
+  "tags": ["bot", "Slovenia", "world-finance-licences", "medium", "mapthebanks"],
+  "data_type": "primary data",
+  "identifying_fields": [
+    "company_name"
+  ],
+  "company_fields": {
+    "name": "company_name"
+  },
+  "files": [
+    "scraper.rb",
+    "licence_transformer.rb"
+  ],
+  "frequency": "monthly",
+  "publisher": {
+    "name": "Securities Market Agency (Slovenia)",
+    "url": "http://www.atvp.si/Default.aspx?id=98",
+    "terms": "unknown",
+    "terms_url": "unknown"
+  }
+  #,
+  # "transformers": [
+  #   {
+  #     "file": "licence_transformer.rb",
+  #     "data_type": "simple-licence",
+  #     "identifying_fields": ["company_name"]
+  #   }
+  # ]
+}
