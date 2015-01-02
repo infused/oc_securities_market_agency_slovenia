@@ -29,7 +29,7 @@ urls.each do |category, url|
 
     data = {
       company_name: clean_string(company_name),
-      address: clean_string(address_parts.map {|x| x.strip}.join(', ')),
+      address: clean_string(address_parts.map {|x| x.strip}.join(', ').squeeze(' ')),
       url: bank.search('td')[1].search('a').attr('href'),
       member_of_stock_exchange: member_of_stock_exchange,
       category: category,
@@ -90,7 +90,7 @@ urls.each do |category, url|
 
     data = {
       company_name: clean_string(co.search('td')[0].text),
-      address: co.search('td')[1].text.split("\r\n").map{|x| x.strip}.join(', '),
+      address: co.search('td')[1].text.split("\r\n").map{|x| x.strip}.join(', ').squeeze(' '),
       telephone: telephone,
       fax: fax,
       category: category,
