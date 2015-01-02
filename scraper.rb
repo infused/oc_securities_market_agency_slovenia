@@ -71,8 +71,7 @@ end
 
 urls = {
   'Stock Exchange' => 'http://www.atvp.si/Eng/Default.aspx?id=99',
-  'Central Securities Clearing Corporation' => 'http://www.atvp.si/Eng/Default.aspx?id=102',
-  'Public Company' => 'http://www.atvp.si/Eng/Default.aspx?id=93'
+  'Central Securities Clearing Corporation' => 'http://www.atvp.si/Eng/Default.aspx?id=102'
 }
 
 urls.each do |category, url|
@@ -99,6 +98,26 @@ urls.each do |category, url|
     }
 
     data[:url] = !co.search('td')[0].search('a').empty? && co.search('td')[0].search('a').attr('href')
+
+    puts JSON.dump(data)
+  end
+end
+
+urls = {
+  'Public Company' => 'http://www.atvp.si/Eng/Default.aspx?id=93'
+}
+
+urls.each do |category, url|
+  agent = Mechanize.new
+  page = agent.get(url)
+  page.search('.documentContent .tabela tr:not(.header)').each do |co|
+    data = {
+      company_name: clean_string(co.search('td')[1].text),
+      address: co.search('td')[2].text.split("\r\n").map{|x| x.strip}.join(', ').squeeze(' '),
+      category: category,
+      source_url: url,
+      sample_date: Time.now
+    }
 
     puts JSON.dump(data)
   end
