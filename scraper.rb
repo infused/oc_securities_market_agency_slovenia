@@ -56,7 +56,7 @@ urls.each do |category, url|
     data = {
       reference_number: clean_string(agent.search('td')[1].text),
       company_name: clean_string(agent.search('td')[2].text),
-      address: clean_string(agent.search('td')[3].text.split("\r\n").join(', ').squeeze(' ')),
+      address: agent.search('td')[3].text.split("\r\n").map {|x| clean_string(x)}.join(', ').squeeze(','),
       tax_registration_number: clean_string(agent.search('td')[4].text),
       start_date: (Date.parse(clean_string(agent.search('td')[5].text).gsub(' ', '').gsub('.','/')) rescue nil),
       end_date: (Date.parse(clean_string(agent.search('td')[6].text).gsub(' ', '').gsub('.','/')) rescue nil),
