@@ -14,8 +14,10 @@ urls = {
   'Mutual Pension Fund' => 'http://www.atvp.si/Eng/Default.aspx?id=104'
 }
 
+companies = []
+
 urls.each do |category, url|
-  agent = Mechanize.new
+  agent = Mechanize.new { |m| m.ssl_version, m.verify_mode = 'TLSv1', OpenSSL::SSL::VERIFY_NONE }
   page = agent.get(url)
   page.search('.documentContent .tabela tr:not(.header)').each do |bank|
 
@@ -30,7 +32,7 @@ urls.each do |category, url|
     data = {
       company_name: clean_string(company_name),
       address: clean_string(address_parts.map {|x| x.strip}.join(', ').squeeze(' ')),
-      url: bank.search('td')[1].search('a').attr('href'),
+      url: (bank.search('td')[1].search('a').attr('href') rescue nil),
       member_of_stock_exchange: member_of_stock_exchange,
       category: category,
       source_url: url,
@@ -40,7 +42,10 @@ urls.each do |category, url|
     data[:telephone] = clean_string(telephone) if telephone
     data[:fax] = clean_string(fax) if fax
 
-    puts JSON.dump(data)
+    if data[:url] && companies.include?(data[:company_name])
+      companies << data[:company_name]
+      puts JSON.dump(data)
+    end
   end
 end
 
