@@ -1,4 +1,5 @@
 require 'json'
+require 'debugger'
 
 STDIN.each_line do |line|
   raw = JSON.parse(line)

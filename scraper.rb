@@ -32,7 +32,7 @@ urls.each do |category, url|
     data = {
       company_name: clean_string(company_name),
       address: clean_string(address_parts.map {|x| x.strip}.join(', ').squeeze(' ')),
-      url: (bank.search('td')[1].search('a').attr('href') rescue nil),
+      url: (bank.search('td')[1].search('a').attr('href').to_s rescue nil),
       member_of_stock_exchange: member_of_stock_exchange,
       category: category,
       source_url: url,
@@ -42,7 +42,7 @@ urls.each do |category, url|
     data[:telephone] = clean_string(telephone) if telephone
     data[:fax] = clean_string(fax) if fax
 
-    if data[:url] && companies.include?(data[:company_name])
+    if data[:url] && !companies.include?(data[:company_name])
       companies << data[:company_name]
       puts JSON.dump(data)
     end
